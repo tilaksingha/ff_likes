@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Increase Like</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Add Google Fonts for a pro gamer look -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #7504df;
+      --accent: #43a047;
+      --danger: #e53935;
+      --bg: #f5f7fa;
+      --card-bg: rgba(255,255,255,0.92);
+      --shadow: 0 4px 24px rgba(30,136,229,0.08);
+      --radius: 18px;
+      --transition: 0.2s cubic-bezier(.4,0,.2,1);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: url('https://wallpapers.com/images/hd/best-gaming-background-nb3khvanv6cggihr.jpg') center center/cover no-repeat fixed;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #5c5c5c;
+      min-height: 100vh;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 0 8px;
+      position: relative;
+    }
+    /* Overlay for better readability */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(120deg, rgba(30,40,60,0.28) 0%, rgba(30,40,60,0.13) 100%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    h2 {
+      margin-top: 48px;
+      font-size: 2.2rem;
+      color: var(--primary);
+      letter-spacing: 1px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(181, 4, 197, 0.08);
+      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+      z-index: 2;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: row;
+      gap: 12px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+      z-index: 2;
+    }
+    input[type="number"] {
+      padding: 14px 18px;
+      font-size: 1.1rem;
+      border: 1.5px solid #d1e3fa;
+      border-radius: var(--radius);
+      outline: none;
+      transition: border var(--transition);
+      background: #fafdff;
+      min-width: 220px;
+      box-sizing: border-box;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    input[type="number"]:focus {
+      border-color: var(--primary);
+      background: #fff;
+    }
+    button {
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(8, 132, 240, 0.1);
+      transition: background var(--transition), transform var(--transition);
+      letter-spacing: 0.5px;
+      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+    }
+    button:hover, button:focus {
+      background: #1565c0;
+      transform: translateY(-2px) scale(1.03);
+    }
+    #result {
+      margin-top: 24px;
+      background: var(--card-bg);
+      padding: 32px 28px 28px 28px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      min-width: 320px;
+      max-width: 420px;
+      width: 100%;
+      display: none;
+      animation: fadeIn 0.5s;
+      z-index: 2;
+      backdrop-filter: blur(2px);
+    }
+    #result.active {
+      display: block;
+    }
+    .player-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+    .player-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 1.08rem;
+      padding: 8px 0;
+      border-bottom: 1px solid #f0f4fa;
+    }
+    .player-row:last-child {
+      border-bottom: none;
+    }
+    .label {
+      color: #789;
+      font-weight: 500;
+      letter-spacing: 0.2px;
+      font-family: 'Roboto', Arial, sans-serif;
+    }
+    .value {
+      font-weight: 600;
+      color: var(--primary);
+      word-break: break-all;
+      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+    }
+    .likes {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 1.15rem;
+      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+    }
+    .likes-change {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--danger);
+      vertical-align: middle;
+      animation: pop 0.5s;
+    }
+    .status {
+      font-weight: 700;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+    }
+    .status.yes {
+      color: var(--accent);
+    }
+    .status.no {
+      color: var(--danger);
+    }
+    @media (max-width: 600px) {
+      h2 {
+        font-size: 1.3rem;
+        margin-top: 24px;
+        margin-bottom: 18px;
+      }
+      .input-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+      #result {
+        padding: 18px 8px 16px 8px;
+        min-width: unset;
+        max-width: 98vw;
+      }
+      .player-row {
+        font-size: 0.98rem;
+      }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(24px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes pop {
+      0% { transform: scale(0.7);}
+      80% { transform: scale(1.2);}
+      100% { transform: scale(1);}
+    }
+  </style>
+</head>
+<body>
+  <div style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(20,24,38,0.78);z-index:-1;"></div>
+
+  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;">
+    <img src="gg.jpg" alt="Xtremer Live Logo" style="width:72px;height:72px;border-radius:50%;margin-top:32px;box-shadow:0 2px 12px rgba(30,136,229,0.10);object-fit:cover;">
+    <h2>Xtremer Live</h2>
+    <div style="margin-bottom: 8px; color: rgb(231, 6, 92); font-size: 1.08rem; font-weight: 500; letter-spacing: 1px;">
+      Powered by Xtremer Live
+    </div>
+    <div class="input-group">
+      <input type="number" id="uidInput" placeholder="Enter UID" />
+      <button onclick="fetchData()">Get Likes</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function decodeUnicode(str) {
+      try {
+        return decodeURIComponent(JSON.parse('"' + str + '"'));
+      } catch {
+        return str;
+      }
+    }
+
+    function showResult(html) {
+      const resultBox = document.getElementById("result");
+      resultBox.innerHTML = html;
+      resultBox.classList.add("active");
+    }
+
+    function hideResult() {
+      const resultBox = document.getElementById("result");
+      resultBox.classList.remove("active");
+      resultBox.innerHTML = "";
+    }
+
+    async function fetchData() {
+      const uid = document.getElementById("uidInput").value.trim();
+      const resultBox = document.getElementById("result");
+      if (!uid) {
+        alert("Please enter a UID.");
+        return;
+      }
+
+      showResult(`<div class="status"><span style="color:#1e88e5;font-size:1.2em;">⏳</span> Fetching data...</div>`);
+
+      const proxyUrl = "https://api.allorigins.win/raw?url=";
+      const apiUrl = `https://likexthug.vercel.app/like?uid=${uid}&region=ind&key=GREAT`;
+      const fullUrl = proxyUrl + encodeURIComponent(apiUrl);
+
+      try {
+        const response = await fetch(fullUrl);
+        const text = await response.text();
+        const data = JSON.parse(text);
+
+        if (!data.player) {
+          showResult(`<div class="status no"><span>❌</span> No data returned. Invalid UID or request blocked.</div>`);
+          return;
+        }
+
+        const nickname = decodeUnicode(data.player.nickname);
+        const likeBefore = data.likes.before.toLocaleString();
+        const likeAfter = data.likes.after.toLocaleString();
+        const likeDiff = data.likes.after - data.likes.before;
+        const likeAdded = data.likes.added_by_api > 0;
+        let likeChangeHtml = '';
+        if (likeDiff > 0) {
+          likeChangeHtml = `<span class="likes-change">+${likeDiff}</span>`;
+        } else if (likeDiff < 0) {
+          likeChangeHtml = `<span class="likes-change">${likeDiff}</span>`;
+        }
+
+        showResult(`
+          <div class="player-card">
+            <div class="player-row">
+              <span class="label">Player Nickname:</span>
+              <span class="value">${nickname}</span>
+            </div>
+            <div class="player-row">
+              <span class="label">UID:</span>
+              <span class="value">${data.player.uid}</span>
+            </div>
+            <div class="player-row">
+              <span class="label">Region:</span>
+              <span class="value">${data.player.region}</span>
+            </div>
+            <div class="player-row">
+              <span class="label">Likes Before:</span>
+              <span class="likes">${likeBefore}</span>
+            </div>
+            <div class="player-row">
+              <span class="label">Likes After:</span>
+              <span class="likes">${likeAfter}${likeChangeHtml}</span>
+            </div>
+            <div class="player-row">
+              <span class="label">Like Added by API:</span>
+              <span class="status ${likeAdded ? 'yes' : 'no'}">
+                ${likeAdded ? '✅ Yes' : '❌ No'}
+              </span>
+            </div>
+          </div>
+        `);
+      } catch (err) {
+        showResult(`<div class="status no"><span>⚠️</span> Failed to parse response.</div>`);
+      }
+    }
+  </script>
+  <footer style="margin-top: auto; padding: 16px 8px; text-align: center; font-size: 0.95rem; color: #ccc; font-family: 'Roboto', Arial, sans-serif; z-index:2; position:relative;">
+    Made with ❤️ by 
+    <a href="https://www.instagram.com/manishkd19/" target="_blank" rel="noopener noreferrer" style="color: #baeb0b6b; text-decoration: none; font-weight: 600;">
+      @manishkd19
+    </a>
+  </footer>
+</body>
+</html>
