@@ -1,224 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Increase Like</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Add Google Fonts for a pro gamer look -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Xtremer Live Likes Booster</title>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --primary: #7504df;
-      --accent: #43a047;
-      --danger: #e53935;
-      --bg: #f5f7fa;
-      --card-bg: rgba(255,255,255,0.92);
-      --shadow: 0 4px 24px rgba(30,136,229,0.08);
-      --radius: 18px;
-      --transition: 0.2s cubic-bezier(.4,0,.2,1);
-    }
-    html, body {
-      height: 100%;
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      background: url('https://wallpapers.com/images/hd/best-gaming-background-nb3khvanv6cggihr.jpg') center center/cover no-repeat fixed;
-      font-family: 'Roboto', Arial, sans-serif;
-      color: #5c5c5c;
-      min-height: 100vh;
     }
-    body {
+    body, html {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      color: #fff;
+      background: #000;
+      overflow: hidden;
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 0 8px;
-      position: relative;
-    }
-    /* Overlay for better readability */
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0; width: 100vw; height: 100vh;
-      background: linear-gradient(120deg, rgba(30,40,60,0.28) 0%, rgba(30,40,60,0.13) 100%);
-      z-index: 0;
-      pointer-events: none;
-    }
-    h2 {
-      margin-top: 48px;
-      font-size: 2.2rem;
-      color: var(--primary);
-      letter-spacing: 1px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      text-shadow: 0 2px 8px rgba(181, 4, 197, 0.08);
-      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
-      z-index: 2;
-    }
-    .input-group {
-      display: flex;
-      flex-direction: row;
-      gap: 12px;
       justify-content: center;
       align-items: center;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-      z-index: 2;
+      flex-direction: column;
+      padding: 20px;
     }
-    input[type="number"] {
-      padding: 14px 18px;
-      font-size: 1.1rem;
-      border: 1.5px solid #d1e3fa;
-      border-radius: var(--radius);
-      outline: none;
-      transition: border var(--transition);
-      background: #fafdff;
-      min-width: 220px;
-      box-sizing: border-box;
-      font-family: 'Roboto', Arial, sans-serif;
+
+    canvas#particles-js {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
     }
-    input[type="number"]:focus {
-      border-color: var(--primary);
-      background: #fff;
-    }
-    button {
-      padding: 14px 28px;
-      font-size: 1.1rem;
-      background: var(--primary);
-      color: #fff;
-      border: none;
-      border-radius: var(--radius);
-      cursor: pointer;
-      font-weight: 600;
-      box-shadow: 0 2px 8px rgba(8, 132, 240, 0.1);
-      transition: background var(--transition), transform var(--transition);
-      letter-spacing: 0.5px;
-      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
-    }
-    button:hover, button:focus {
-      background: #1565c0;
-      transform: translateY(-2px) scale(1.03);
-    }
-    #result {
-      margin-top: 24px;
-      background: var(--card-bg);
-      padding: 32px 28px 28px 28px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      min-width: 320px;
+
+    .container {
+      background: rgba(0,0,0,0.7);
+      padding: 30px 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 18px rgba(117, 4, 223, 0.7);
+      text-align: center;
       max-width: 420px;
       width: 100%;
+    }
+
+    .logo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+    }
+
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      color: #a95df7;
+      font-size: 2rem;
+      margin-bottom: 6px;
+    }
+
+    .powered {
+      color: #e70c5c;
+      margin-bottom: 22px;
+      font-size: 1rem;
+    }
+
+    input[type="number"] {
+      padding: 14px;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+      margin-bottom: 12px;
+      font-size: 1rem;
+      outline: none;
+    }
+
+    button {
+      background-color: #7504df;
+      color: #fff;
+      font-family: 'Orbitron', sans-serif;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #5400a8;
+      transform: scale(1.02);
+    }
+
+    #result {
+      margin-top: 20px;
+      text-align: left;
+      font-size: 0.95rem;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 10px;
+      padding: 18px;
       display: none;
-      animation: fadeIn 0.5s;
-      z-index: 2;
-      backdrop-filter: blur(2px);
+      word-wrap: break-word;
     }
-    #result.active {
-      display: block;
-    }
-    .player-card {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-    .player-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 1.08rem;
-      padding: 8px 0;
-      border-bottom: 1px solid #f0f4fa;
-    }
-    .player-row:last-child {
-      border-bottom: none;
-    }
+
     .label {
-      color: #789;
-      font-weight: 500;
-      letter-spacing: 0.2px;
-      font-family: 'Roboto', Arial, sans-serif;
+      color: #ccc;
     }
+
     .value {
-      font-weight: 600;
-      color: var(--primary);
-      word-break: break-all;
-      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+      color: #93f8e0;
+      font-weight: bold;
     }
+
     .likes {
-      color: var(--accent);
-      font-weight: 700;
-      font-size: 1.15rem;
-      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+      color: #00e676;
+      font-weight: bold;
     }
+
     .likes-change {
-      display: inline-block;
-      margin-left: 8px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--danger);
-      vertical-align: middle;
-      animation: pop 0.5s;
+      color: #e53935;
+      margin-left: 6px;
     }
-    .status {
-      font-weight: 700;
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-family: 'Orbitron', 'Roboto', Arial, sans-serif;
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #bbb;
     }
-    .status.yes {
-      color: var(--accent);
+
+    footer a {
+      color: #f4ff81;
+      text-decoration: none;
     }
-    .status.no {
-      color: var(--danger);
-    }
-    @media (max-width: 600px) {
-      h2 {
-        font-size: 1.3rem;
-        margin-top: 24px;
-        margin-bottom: 18px;
-      }
-      .input-group {
-        flex-direction: column;
-        gap: 10px;
-      }
-      #result {
-        padding: 18px 8px 16px 8px;
-        min-width: unset;
-        max-width: 98vw;
-      }
-      .player-row {
-        font-size: 0.98rem;
-      }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(24px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    @keyframes pop {
-      0% { transform: scale(0.7);}
-      80% { transform: scale(1.2);}
-      100% { transform: scale(1);}
+
+    @media (max-width: 480px) {
+      h2 { font-size: 1.6rem; }
+      .container { padding: 20px 14px; }
     }
   </style>
 </head>
 <body>
-  <div style="position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(20,24,38,0.78);z-index:-1;"></div>
+  <canvas id="particles-js"></canvas>
 
-  <div style="position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;">
-    <img src="gg.jpg" alt="Xtremer Live Logo" style="width:72px;height:72px;border-radius:50%;margin-top:32px;box-shadow:0 2px 12px rgba(30,136,229,0.10);object-fit:cover;">
+  <div class="container">
+    <img src="gg.jpg" class="logo" alt="Xtremer Logo" />
     <h2>Xtremer Live</h2>
-    <div style="margin-bottom: 8px; color: rgb(231, 6, 92); font-size: 1.08rem; font-weight: 500; letter-spacing: 1px;">
-      Powered by Xtremer Live
-    </div>
-    <div class="input-group">
-      <input type="number" id="uidInput" placeholder="Enter UID" />
-      <button onclick="fetchData()">Get Likes</button>
-    </div>
+    <div class="powered">Powered by Xtremer Live</div>
+    <input type="number" id="uidInput" placeholder="Enter UID" />
+    <button onclick="fetchData()">Get Likes</button>
     <div id="result"></div>
   </div>
 
+  <footer>
+    Made with ❤️ by <a href="https://www.youtube.com/xtremerliveff" target="_blank">Xtremer Live</a>
+  </footer>
+
+  <!-- JS Script -->
   <script>
     function decodeUnicode(str) {
       try {
@@ -231,24 +169,17 @@
     function showResult(html) {
       const resultBox = document.getElementById("result");
       resultBox.innerHTML = html;
-      resultBox.classList.add("active");
-    }
-
-    function hideResult() {
-      const resultBox = document.getElementById("result");
-      resultBox.classList.remove("active");
-      resultBox.innerHTML = "";
+      resultBox.style.display = "block";
     }
 
     async function fetchData() {
       const uid = document.getElementById("uidInput").value.trim();
-      const resultBox = document.getElementById("result");
       if (!uid) {
         alert("Please enter a UID.");
         return;
       }
 
-      showResult(`<div class="status"><span style="color:#1e88e5;font-size:1.2em;">⏳</span> Fetching data...</div>`);
+      showResult(`<div>⏳ Fetching data...</div>`);
 
       const proxyUrl = "https://api.allorigins.win/raw?url=";
       const apiUrl = `https://likexthug.vercel.app/like?uid=${uid}&region=ind&key=GREAT`;
@@ -260,7 +191,7 @@
         const data = JSON.parse(text);
 
         if (!data.player) {
-          showResult(`<div class="status no"><span>❌</span> No data returned. Invalid UID or request blocked.</div>`);
+          showResult(`<div style="color:#ff5252;">❌ No data returned. Invalid UID or request blocked.</div>`);
           return;
         }
 
@@ -268,54 +199,43 @@
         const likeBefore = data.likes.before.toLocaleString();
         const likeAfter = data.likes.after.toLocaleString();
         const likeDiff = data.likes.after - data.likes.before;
+        const likeChangeHtml = likeDiff !== 0 ? `<span class="likes-change">(${likeDiff > 0 ? "+" : ""}${likeDiff})</span>` : '';
         const likeAdded = data.likes.added_by_api > 0;
-        let likeChangeHtml = '';
-        if (likeDiff > 0) {
-          likeChangeHtml = `<span class="likes-change">+${likeDiff}</span>`;
-        } else if (likeDiff < 0) {
-          likeChangeHtml = `<span class="likes-change">${likeDiff}</span>`;
-        }
 
         showResult(`
-          <div class="player-card">
-            <div class="player-row">
-              <span class="label">Player Nickname:</span>
-              <span class="value">${nickname}</span>
-            </div>
-            <div class="player-row">
-              <span class="label">UID:</span>
-              <span class="value">${data.player.uid}</span>
-            </div>
-            <div class="player-row">
-              <span class="label">Region:</span>
-              <span class="value">${data.player.region}</span>
-            </div>
-            <div class="player-row">
-              <span class="label">Likes Before:</span>
-              <span class="likes">${likeBefore}</span>
-            </div>
-            <div class="player-row">
-              <span class="label">Likes After:</span>
-              <span class="likes">${likeAfter}${likeChangeHtml}</span>
-            </div>
-            <div class="player-row">
-              <span class="label">Like Added by API:</span>
-              <span class="status ${likeAdded ? 'yes' : 'no'}">
-                ${likeAdded ? '✅ Yes' : '❌ No'}
-              </span>
-            </div>
-          </div>
+          <div><span class="label">Nickname:</span> <span class="value">${nickname}</span></div>
+          <div><span class="label">UID:</span> <span class="value">${data.player.uid}</span></div>
+          <div><span class="label">Region:</span> <span class="value">${data.player.region}</span></div>
+          <div><span class="label">Likes Before:</span> <span class="likes">${likeBefore}</span></div>
+          <div><span class="label">Likes After:</span> <span class="likes">${likeAfter}</span> ${likeChangeHtml}</div>
+          <div><span class="label">Like Added by API:</span> <span class="value">${likeAdded ? '✅ Yes' : '❌ No'}</span></div>
         `);
       } catch (err) {
-        showResult(`<div class="status no"><span>⚠️</span> Failed to parse response.</div>`);
+        showResult(`<div style="color:#ff1744;">⚠️ Failed to load response.</div>`);
       }
     }
   </script>
-  <footer style="margin-top: auto; padding: 16px 8px; text-align: center; font-size: 0.95rem; color: #ccc; font-family: 'Roboto', Arial, sans-serif; z-index:2; position:relative;">
-    Made with ❤️ by 
-    <a href="https://www.instagram.com/manishkd19/" target="_blank" rel="noopener noreferrer" style="color: #baeb0b6b; text-decoration: none; font-weight: 600;">
-      @manishkd19
-    </a>
-  </footer>
+
+  <!-- Particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.5 },
+        "size": { "value": 3 },
+        "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 },
+        "move": { "enable": true, "speed": 3 }
+      },
+      "interactivity": {
+        "detect_on": "canvas",
+        "events": { "onhover": { "enable": true, "mode": "repulse" } },
+        "modes": { "repulse": { "distance": 100, "duration": 0.4 } }
+      },
+      "retina_detect": true
+    });
+  </script>
 </body>
 </html>
